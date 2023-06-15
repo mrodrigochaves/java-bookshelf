@@ -1,16 +1,22 @@
 package com.mrodrigochaves.bookshelf.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mrodrigochaves.bookshelf.dto.BooksDTO;
 import com.mrodrigochaves.bookshelf.service.BooksService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/books")
@@ -51,6 +57,14 @@ public class BooksController {
     public ResponseEntity<List<BooksDTO>> getByDescription(@PathVariable("description") String description){
         List<BooksDTO> books = service.getByDescription(description);
         return ResponseEntity.ok(books);
+    }
+
+    @PostMapping
+    public ResponseEntity<BooksDTO> create(@RequestBody @Valid BooksDTO request){
+        Optional<BooksDTO> response = service.create(request);
+        return response.map(dto -> new ResponseEntity<>(dto, HttpStatus.CREATED))
+        .orElse(ResponseEntity.badRequest().build());
+
     }
 
 }
