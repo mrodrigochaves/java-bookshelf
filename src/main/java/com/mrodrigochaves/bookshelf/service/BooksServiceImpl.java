@@ -30,10 +30,42 @@ public class BooksServiceImpl implements BooksService {
         return mapBooksListToDTO(books);    
     }
 
+    @Override
+    public List<BooksDTO> getByTitle(String title) {
+        List<Books> books = repository.findByTitle(title);
+        return mapBooksListToDTO(books);
+    }
+
+    @Override
+    public List<BooksDTO> getByAuthor(String author) {
+        List<Books> books = repository.findByAuthor(author);
+        return mapBooksListToDTO(books);
+    }
+
+    @Override
+    public List<BooksDTO> getByPublished(String published) {
+        List<Books> books = repository.findByPublished(published);
+        return mapBooksListToDTO(books);
+    }
+
+    @Override
+    public List<BooksDTO> getByDescription(String description) {
+         List<Books> books = repository.findByDescription(description);
+        return mapBooksListToDTO(books);
+    }
+
+
+
     private List<BooksDTO> mapBooksListToDTO(List<Books> books) {
         return books.stream()
                 .map(book -> mapper.map(books, BooksDTO.class))
                 .collect(Collectors.toList());
     }
+
+    
+
+    
+
+    
     
 }
