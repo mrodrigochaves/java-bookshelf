@@ -1,6 +1,7 @@
 package com.mrodrigochaves.bookshelf.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -12,6 +13,8 @@ import com.mrodrigochaves.bookshelf.dto.BooksDTO;
 import com.mrodrigochaves.bookshelf.model.Books;
 import com.mrodrigochaves.bookshelf.repository.BooksRepository;
 
+import jakarta.validation.Valid;
+
 @Service
 public class BooksServiceImpl implements BooksService {
 
@@ -19,15 +22,15 @@ public class BooksServiceImpl implements BooksService {
     private ModelMapper mapper;
 
     @Autowired
-    public BooksServiceImpl(BooksRepository repository, ModelMapper mapper){
+    public BooksServiceImpl(BooksRepository repository, ModelMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
-    
+
     @Override
     public List<BooksDTO> getAll() {
         List<Books> books = repository.findAll();
-        return mapBooksListToDTO(books);    
+        return mapBooksListToDTO(books);
     }
 
     @Override
@@ -50,11 +53,9 @@ public class BooksServiceImpl implements BooksService {
 
     @Override
     public List<BooksDTO> getByDescription(String description) {
-         List<Books> books = repository.findByDescription(description);
+        List<Books> books = repository.findByDescription(description);
         return mapBooksListToDTO(books);
     }
-
-
 
     private List<BooksDTO> mapBooksListToDTO(List<Books> books) {
         return books.stream()
@@ -62,10 +63,11 @@ public class BooksServiceImpl implements BooksService {
                 .collect(Collectors.toList());
     }
 
-    
+    @Override
+    public Optional<BooksDTO> create(@Valid BooksDTO request) {
+        Books books = mapper.map(request, Books.class);
+        Books salvedBooks = repository.saveAndFlush(books);
+        return Optional.of(mapper.map(salvedBooks, BooksDTO.class));
+    }
 
-    
-
-    
-    
 }
