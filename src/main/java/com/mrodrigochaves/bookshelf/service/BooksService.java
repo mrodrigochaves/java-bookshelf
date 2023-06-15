@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.mrodrigochaves.bookshelf.dto.BooksDTO;
-import com.mrodrigochaves.bookshelf.model.Books;
 
 import jakarta.validation.Valid;
 
@@ -20,6 +19,8 @@ public interface BooksService {
 
 	List<BooksDTO> getByDescription(String description);
 
-    Optional<Books> create(@Valid BooksDTO request);
+    Optional<BooksDTO> create(@Valid BooksDTO request);
+
+    Optional<BooksDTO> delete(Long id);
 
 }
