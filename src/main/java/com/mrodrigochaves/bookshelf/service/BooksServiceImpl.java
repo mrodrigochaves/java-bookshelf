@@ -70,4 +70,13 @@ public class BooksServiceImpl implements BooksService {
         return Optional.of(mapper.map(salvedBooks, BooksDTO.class));
     }
 
+    @Override
+    public Optional<BooksDTO> delete(Long id){
+        Optional<Books> books = repository.findById(id);
+        books.ifPresent(bk -> repository.delete(id));
+        return books.map(bk -> mapper.map(bk, BooksDTO.class));
+    }
+
+    
+
 }
