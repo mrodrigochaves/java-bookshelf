@@ -71,12 +71,21 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
-    public Optional<BooksDTO> delete(Long id){
+    public Optional<BooksDTO> delete(Long id) {
         Optional<Books> books = repository.findById(id);
         books.ifPresent(bk -> repository.delete(id));
         return books.map(bk -> mapper.map(bk, BooksDTO.class));
     }
 
-    
-
+    @Override
+    public Optional<BooksDTO> update(Long id, @Valid BooksDTO request) {
+        Optional<Books> booksOptional = repository.findById(id);
+        if (booksOptional.isPresent()) {
+            Books books = booksOptional.get();
+            mapper.map(request, books);
+            Books updatedBooks = repository.save(books);
+            return Optional.of(mapper.map(updatedBooks, BooksDTO.class));
+        }
+        return Optional.empty();
+    }
 }
