@@ -10,9 +10,7 @@ import com.mrodrigochaves.bookshelf.dto.BooksDTO;
 import com.mrodrigochaves.bookshelf.model.Books;
 
 @Repository
-public interface BooksRepository extends JpaRepository<Books, Long>{
-
-    List<Books> findByTitle(List<Books> books);
+public interface BooksRepository extends JpaRepository<Books, Long> {
 
     List<Books> findByTitle(String title);
 
@@ -23,5 +21,5 @@ public interface BooksRepository extends JpaRepository<Books, Long>{
     List<Books> findByDescription(String description);
 
     Optional<BooksDTO> delete(Long id);
-    
+
 }
