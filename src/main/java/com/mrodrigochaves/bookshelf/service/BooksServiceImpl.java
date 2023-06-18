@@ -88,4 +88,10 @@ public class BooksServiceImpl implements BooksService {
         }
         return Optional.empty();
     }
+
+    @Override
+    public Optional<BooksDTO> getById(Long id) {
+        return repository.findById(id)
+                .map(employee -> mapper.map(employee, BooksDTO.class));
+    }
 }

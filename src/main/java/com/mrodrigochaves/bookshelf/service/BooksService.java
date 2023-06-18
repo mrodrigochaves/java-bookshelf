@@ -25,4 +25,6 @@ public interface BooksService {
 
     Optional<BooksDTO> update(Long id, @Valid BooksDTO request);
 
+    Optional<BooksDTO> getById(Long id);
+
 }

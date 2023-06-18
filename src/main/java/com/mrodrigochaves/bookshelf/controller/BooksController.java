@@ -25,9 +25,9 @@ import jakarta.validation.Valid;
 @RequestMapping("/books")
 public class BooksController {
 
+    @Autowired
     private final BooksService service;
 
-    @Autowired
     public BooksController(BooksService service) {
         this.service = service;
     }
@@ -68,6 +68,13 @@ public class BooksController {
         return response.map(dto -> new ResponseEntity<>(dto, HttpStatus.CREATED))
                 .orElse(ResponseEntity.badRequest().build());
 
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BooksDTO> getById(@PathVariable("id") Long id) {
+        Optional<BooksDTO> response = service.getById(id);
+        return response.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
