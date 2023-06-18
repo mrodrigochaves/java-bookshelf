@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,6 @@ import com.mrodrigochaves.bookshelf.service.BooksService;
 import jakarta.validation.Valid;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/books")
 public class BooksController {
 
@@ -35,12 +34,6 @@ public class BooksController {
     @GetMapping
     public ResponseEntity<List<BooksDTO>> getAll() {
         List<BooksDTO> books = service.getAll();
-        return ResponseEntity.ok(books);
-    }
-
-    @GetMapping("/title/{title}")
-    public ResponseEntity<List<BooksDTO>> getByTitle(@PathVariable("title") String title) {
-        List<BooksDTO> books = service.getByTitle(title);
         return ResponseEntity.ok(books);
     }
 
@@ -82,6 +75,15 @@ public class BooksController {
         Optional<BooksDTO> response = service.update(id, request);
         return response.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteBooks(@PathVariable Long id) {
+        Optional<BooksDTO> books = service.deleteById(id);
+        if (books.isPresent()) {
+            return ResponseEntity.ok("Books deleted successfully");
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }

@@ -28,15 +28,29 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
+    public Optional<BooksDTO> create(@Valid BooksDTO request) {
+        Books books = mapper.map(request, Books.class);
+        Books salvedBooks = repository.saveAndFlush(books);
+        return Optional.of(mapper.map(salvedBooks, BooksDTO.class));
+    }
+
+    @Override
     public List<BooksDTO> getAll() {
         List<Books> books = repository.findAll();
         return mapBooksListToDTO(books);
     }
 
     @Override
-    public List<BooksDTO> getByTitle(String title) {
-        List<Books> books = repository.findByTitle(title);
-        return mapBooksListToDTO(books);
+    public Optional<BooksDTO> getById(Long id) {
+        return repository.findById(id)
+                .map(employee -> mapper.map(employee, BooksDTO.class));
+    }
+
+    @Override
+    public Optional<BooksDTO> deleteById(Long id) {
+        Optional<Books> books = repository.findById(id);
+        books.ifPresent(bk -> repository.deleteById(id));
+        return books.map(bk -> mapper.map(bk, BooksDTO.class));
     }
 
     @Override
@@ -57,26 +71,6 @@ public class BooksServiceImpl implements BooksService {
         return mapBooksListToDTO(books);
     }
 
-    private List<BooksDTO> mapBooksListToDTO(List<Books> books) {
-        return books.stream()
-                .map(book -> mapper.map(books, BooksDTO.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Optional<BooksDTO> create(@Valid BooksDTO request) {
-        Books books = mapper.map(request, Books.class);
-        Books salvedBooks = repository.saveAndFlush(books);
-        return Optional.of(mapper.map(salvedBooks, BooksDTO.class));
-    }
-
-    @Override
-    public Optional<BooksDTO> deleteById(Long id) {
-        Optional<Books> books = repository.findById(id);
-        books.ifPresent(bk -> repository.deleteById(id));
-        return books.map(bk -> mapper.map(bk, BooksDTO.class));
-    }
-
     @Override
     public Optional<BooksDTO> update(Long id, @Valid BooksDTO request) {
         Optional<Books> booksOptional = repository.findById(id);
@@ -89,9 +83,10 @@ public class BooksServiceImpl implements BooksService {
         return Optional.empty();
     }
 
-    @Override
-    public Optional<BooksDTO> getById(Long id) {
-        return repository.findById(id)
-                .map(employee -> mapper.map(employee, BooksDTO.class));
+    private List<BooksDTO> mapBooksListToDTO(List<Books> books) {
+        return books.stream()
+                .map(book -> mapper.map(books, BooksDTO.class))
+                .collect(Collectors.toList());
     }
+
 }

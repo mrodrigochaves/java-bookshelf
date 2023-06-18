@@ -7,6 +7,10 @@ import lombok.NonNull;
 @Data
 public class BooksDTO {
 
+     public BooksDTO() {
+    
+    }
+
     @NotBlank
     @NonNull
     private String title;   

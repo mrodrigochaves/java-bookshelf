@@ -18,15 +18,26 @@ public class JavaBookshelfApplication {
 	@Bean
 	CommandLineRunner initDataBase(BooksRepository booksRepository) {
 		return args -> {
+
 			booksRepository.deleteAll();
 
-			Books bk = new Book();
-			bk.setTitle("Meu livro");
-			bk.setAuthor("José");
-			bk.setDescription("Livro");
+			Books bk = new Books();
+			bk.setTitle("Livro");
+			bk.setAuthor("Marcio");
+			bk.setDescription("Livro teste");
 			bk.setPublished("01012001");
 
 			booksRepository.save(bk);
+
+			Books bk2 = new Books();
+			bk2.setTitle("Livro2");
+			bk2.setAuthor("Benjamin");
+			bk2.setDescription("Livro teste2");
+			bk2.setPublished("01012020");
+
+			booksRepository.save(bk2);
+
+
 		};
 	}
 }

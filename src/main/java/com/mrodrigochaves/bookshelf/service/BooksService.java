@@ -11,20 +11,18 @@ public interface BooksService {
 
     List<BooksDTO> getAll();
 
-    List<BooksDTO> getByTitle(String title);
+    List<BooksDTO> getByAuthor(String name);
 
-    List<BooksDTO> getByAuthor(String author);
+    List<BooksDTO> getByPublished(String name);
 
-    List<BooksDTO> getByPublished(String published);
-
-	List<BooksDTO> getByDescription(String description);
+    List<BooksDTO> getByDescription(String name);
 
     Optional<BooksDTO> create(@Valid BooksDTO request);
 
-    Optional<BooksDTO> deleteById(Long id);
+    Optional<BooksDTO> getById(Long id);
 
     Optional<BooksDTO> update(Long id, @Valid BooksDTO request);
 
-    Optional<BooksDTO> getById(Long id);
+    Optional<BooksDTO> deleteById(Long id);
 
 }
