@@ -21,7 +21,7 @@ public interface BooksService {
 
     Optional<BooksDTO> create(@Valid BooksDTO request);
 
-    Optional<BooksDTO> delete(Long id);
+    Optional<BooksDTO> deleteById(Long id);
 
     Optional<BooksDTO> update(Long id, @Valid BooksDTO request);
 

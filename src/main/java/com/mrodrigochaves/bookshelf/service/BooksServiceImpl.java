@@ -71,9 +71,9 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
-    public Optional<BooksDTO> delete(Long id) {
+    public Optional<BooksDTO> deleteById(Long id) {
         Optional<Books> books = repository.findById(id);
-        books.ifPresent(bk -> repository.delete(id));
+        books.ifPresent(bk -> repository.deleteById(id));
         return books.map(bk -> mapper.map(bk, BooksDTO.class));
     }
 
