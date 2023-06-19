@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import com.mrodrigochaves.bookshelf.service.BooksService;
 import jakarta.validation.Valid;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/books")
 public class BooksController {
 
@@ -37,21 +39,21 @@ public class BooksController {
         return ResponseEntity.ok(books);
     }
 
-    @GetMapping("/author/{author}")
-    public ResponseEntity<List<BooksDTO>> getByAuthor(@PathVariable("author") String author) {
-        List<BooksDTO> books = service.getByAuthor(author);
+    @GetMapping("/author/{name}")
+    public ResponseEntity<List<BooksDTO>> getByAuthor(@PathVariable("name") String name) {
+        List<BooksDTO> books = service.getByAuthor(name);
         return ResponseEntity.ok(books);
     }
 
-    @GetMapping("/published/{published}")
-    public ResponseEntity<List<BooksDTO>> getByPublished(@PathVariable("published") String published) {
-        List<BooksDTO> books = service.getByPublished(published);
+    @GetMapping("/published/{name}")
+    public ResponseEntity<List<BooksDTO>> getByPublished(@PathVariable("name") String name) {
+        List<BooksDTO> books = service.getByPublished(name);
         return ResponseEntity.ok(books);
     }
 
-    @GetMapping("/description/{description}")
-    public ResponseEntity<List<BooksDTO>> getByDescription(@PathVariable("description") String description) {
-        List<BooksDTO> books = service.getByDescription(description);
+    @GetMapping("/description/{name}")
+    public ResponseEntity<List<BooksDTO>> getByDescription(@PathVariable("name") String name) {
+        List<BooksDTO> books = service.getByDescription(name);
         return ResponseEntity.ok(books);
     }
 
