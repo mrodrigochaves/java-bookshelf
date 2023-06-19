@@ -43,7 +43,7 @@ public class BooksServiceImpl implements BooksService {
     @Override
     public Optional<BooksDTO> getById(Long id) {
         return repository.findById(id)
-                .map(employee -> mapper.map(employee, BooksDTO.class));
+                .map(books -> mapper.map(books, BooksDTO.class));
     }
 
     @Override
@@ -76,16 +76,20 @@ public class BooksServiceImpl implements BooksService {
         Optional<Books> booksOptional = repository.findById(id);
         if (booksOptional.isPresent()) {
             Books books = booksOptional.get();
-            mapper.map(request, books);
-            Books updatedBooks = repository.save(books);
-            return Optional.of(mapper.map(updatedBooks, BooksDTO.class));
+            books.setTitle(request.getTitle());
+            books.setAuthor(request.getAuthor());
+            books.setDescription(request.getDescription());
+            books.setPublished(request.getPublished());
+            
+            repository.save(books);
+            return Optional.of(mapper.map(books, BooksDTO.class));
         }
         return Optional.empty();
     }
 
     private List<BooksDTO> mapBooksListToDTO(List<Books> books) {
         return books.stream()
-                .map(book -> mapper.map(books, BooksDTO.class))
+                .map(book -> mapper.map(book, BooksDTO.class))
                 .collect(Collectors.toList());
     }
 
