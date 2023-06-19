@@ -1,5 +1,6 @@
 package com.mrodrigochaves.bookshelf.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +16,7 @@ public interface BooksRepository extends JpaRepository<Books, Long> {
 
     List<Books> findByDescription(String description);
 
-    List<Books> findByPublished(String published);
+    List<Books> findByPublished(Date published);
 
     List<Books> findByTitle(String title);
 

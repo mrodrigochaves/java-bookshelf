@@ -1,5 +1,6 @@
 package com.mrodrigochaves.bookshelf.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,7 @@ public class BooksController {
     }
 
     @GetMapping("/published/{name}")
-    public ResponseEntity<List<BooksDTO>> getByPublished(@PathVariable("name") String name) {
+    public ResponseEntity<List<BooksDTO>> getByPublished(@PathVariable("name") Date name) {
         List<BooksDTO> books = service.getByPublished(name);
         return ResponseEntity.ok(books);
     }

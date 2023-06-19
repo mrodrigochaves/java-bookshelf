@@ -2,6 +2,7 @@ package com.mrodrigochaves.bookshelf.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -60,7 +61,7 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
-    public List<BooksDTO> getByPublished(String published) {
+    public List<BooksDTO> getByPublished(Date published) {
         List<Books> books = repository.findByPublished(published);
         return mapBooksListToDTO(books);
     }
