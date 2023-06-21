@@ -1,14 +1,12 @@
 package com.mrodrigochaves.bookshelf.model;
 
-import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+
 import lombok.Data;
 
 @Entity
@@ -34,7 +32,6 @@ public class Books {
 
 
     @Column(name = "published", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date published;
+    private String published;
 
 }
