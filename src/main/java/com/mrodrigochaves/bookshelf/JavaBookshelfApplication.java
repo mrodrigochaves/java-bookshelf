@@ -1,17 +1,15 @@
 package com.mrodrigochaves.bookshelf;
 
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.Date;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import com.mrodrigochaves.bookshelf.model.Books;
 import com.mrodrigochaves.bookshelf.repository.BooksRepository;
 
+@Component
 @SpringBootApplication
 public class JavaBookshelfApplication {
 
@@ -26,20 +24,12 @@ public class JavaBookshelfApplication {
 			booksRepository.deleteAll();
 
 			Books bk = new Books();
-			bk.setTitle("Livro");
-			bk.setAuthor("Marcio");
-			bk.setDescription("Livro teste");
-			String publishedDate = "2020/01/02";
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-			Date published;
-			try {
-				published = dateFormat.parse(publishedDate);
-				bk.setPublished(published);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+            bk.setTitle("Livro");
+            bk.setAuthor("Marcio");
+            bk.setDescription("Livro teste");
+            bk.setPublished("20/01/2002");
 
-			booksRepository.save(bk);
+            booksRepository.save(bk);
 
 		
 
