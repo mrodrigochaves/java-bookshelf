@@ -1,7 +1,6 @@
 package com.mrodrigochaves.bookshelf.service;
 
 import java.util.List;
-import java.util.Date;
 import java.util.Optional;
 
 import com.mrodrigochaves.bookshelf.dto.BooksDTO;
@@ -14,7 +13,7 @@ public interface BooksService {
 
     List<BooksDTO> getByAuthor(String name);
 
-    List<BooksDTO> getByPublished(Date name);
+    List<BooksDTO> getByPublished(String name);
 
     List<BooksDTO> getByDescription(String name);
 
