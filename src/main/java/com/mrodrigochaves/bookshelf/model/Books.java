@@ -22,6 +22,12 @@ public class Books {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(name = "subtitle", nullable = false)
+    private String subtitle;
+
+    @Column(name = "image", nullable = false)
+    private String image;
+
 
     @Column(name = "author", nullable = false)
     private String author;
@@ -33,5 +39,19 @@ public class Books {
 
     @Column(name = "published", nullable = false)
     private String published;
+
+    public Books() {
+    }
+
+    public Books(long id, String title, String author, String published, String description, String image, String subtitle) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.published = published;
+        this.description = description;
+        this.image = image;
+        this.subtitle = subtitle;
+    }
+
 
 }
